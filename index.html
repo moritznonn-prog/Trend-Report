@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TREND REPORT | KI Vergleich & Marktübersicht</title>
+    <style>
+        /* === Farbpalette & Variablen === */
+        :root {
+            --bg-light: #F4F3EF;       
+            --bg-white: #FFFFFF;
+            --text-dark: #2C2C2C;      
+            --text-muted: #555555;     
+            --accent-color: #A3A095;   
+            --border-color: #E2E0D8;
+            --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --progress-bg: #EAE8E1;
+            --progress-fill: #2C2C2C;
+            --utopian-bg: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=2500&auto=format&fit=crop');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-main);
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* === Hero Section === */
+        .hero {
+            min-height: 100vh;
+            height: auto; 
+            width: 100%;
+            background: linear-gradient(rgba(20, 30, 45, 0.6), rgba(15, 25, 35, 0.8)), var(--utopian-bg) center/cover no-repeat;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+            padding-bottom: 80px; 
+        }
+
+        /* Zentriertes Menü Setup */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 60px;
+            gap: 20px;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--text-dark);
+            padding: 12px 26px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 13px;
+            transition: background 0.3s, transform 0.2s;
+            cursor: pointer;
+            border: none;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        .nav-btn:hover {
+            background: #fff;
+            transform: translateY(-2px);
+        }
+
+        .nav-menu-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 35px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-menu a {
+            transition: opacity 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-menu a:hover { opacity: 0.7; }
+
+        /* === Language Switcher (Seriöses Icon) === */
+        .lang-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.4);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            font-family: var(--font-main);
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .lang-btn svg { width: 16px; height: 16px; opacity: 0.9; }
+        .lang-btn:hover { background: rgba(255, 255, 255, 0.25); border-color: #fff; }
+
+        .lang-dropdown {
+            position: absolute;
+            top: 120%;
+            right: 0;
+            background: var(--bg-white);
+            color: var(--text-dark);
+            min-width: 140px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .lang-dropdown.show { opacity: 1; visibility: visible; transform: translateY(0); }
+        .lang-dropdown a {
+            display: block;
+            padding: 14px 20px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            font-family: var(--font-main);
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .lang-dropdown a:last-child { border-bottom: none; }
+        .lang-dropdown a:hover { background: #f9f9f9; color: var(--text-dark); }
+
+        /* Zentrierter Titel */
+        .hero-center {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-top: -5vh; 
+            padding: 40px 20px;
+        }
+
+        .main-title {
+            font-size: 10vw;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            margin-right: -0.2em; 
+            line-height: 1;
+        }
+
+        .sub-title {
+            font-size: 1.5vw;
+            letter-spacing: 0.8em;
+            margin-right: -0.8em;
+            margin-top: 20px;
+            font-weight: 300;
+            opacity: 0.8;
+        }
+
+        .hero-bottom {
+            padding: 0 60px;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 40px;
+            align-items: end;
+        }
+
+        .hero-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 12px;
+            padding: 25px;
+            display: flex;
+            gap: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s;
+        }
+
+        .hero-card:hover { transform: translateY(-5px); }
+
+        .hero-card img { width: 80px; height: 80px; object-fit: cover; border-radius: 6px; }
+        .hero-card-text h4 { font-size: 16px; margin-bottom: 8px; font-weight: 600; }
+        .hero-card-text p { font-size: 14px; opacity: 0.9; line-height: 1.5; margin-bottom: 12px; }
+        .hero-card-text a { font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: #fff; cursor: pointer; }
+
+        .hero-text-block { font-size: 15px; line-height: 1.8; opacity: 0.9; font-weight: 400; }
+        .hero-text-block strong { font-size: 17px; font-weight: 600; display: block; margin-bottom: 10px; }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            opacity: 0.8;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-down span { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+        .scroll-down .line { width: 1px; height: 40px; background-color: #fff; }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-10px) translateX(-50%); }
+            60% { transform: translateY(-5px) translateX(-50%); }
+        }
+
+        /* === Allgemeine Sektionen === */
+        .content-section {
+            padding: 100px 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .content-section.is-visible { opacity: 1; transform: translateY(0); }
+
+        .section-header { text-align: center; margin-bottom: 70px; }
+        .section-header h2 { font-size: 38px; font-weight: 300; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; color: var(--text-dark); }
+        .section-header p { color: var(--text-muted); max-width: 800px; margin: 0 auto; line-height: 1.8; font-size: 16px; }
+
+        /* Utopischer Banner für Boxen */
+        .utopian-banner {
+            background: linear-gradient(rgba(15, 25, 40, 0.8), rgba(25, 35, 55, 0.7)), var(--utopian-bg) center/cover no-repeat;
+            padding: 35px 40px;
+            color: #fff;
+        }
+
+        .utopian-banner h3 {
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        
+        .utopian-banner p {
+            font-size: 15px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* === Die Tabelle (Titanen-Vergleich) === */
+        .table-container { 
+            background: var(--bg-white); 
+            border-radius: 16px; 
+            box-shadow: 0 25px 50px rgba(0,0,0,0.05); 
+            overflow: hidden; 
+            margin-bottom: 60px; 
+        }
+
+        .table-scroll { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; text-align: left; min-width: 900px; }
+        th, td { padding: 25px 30px; border-bottom: 1px solid var(--border-color); }
+        th:first-child, td:first-child { width: 22%; font-weight: bold; color: var(--text-dark); background: #FDFDFB; }
+        th { background-color: var(--bg-white); font-size: 14px; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); padding-top: 35px; padding-bottom: 35px; vertical-align: top; }
+        th.model-name { font-size: 22px; color: var(--text-dark); text-transform: none; letter-spacing: 0; padding-bottom: 20px; }
+        th.model-name span { display: block; font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 8px; }
+        th.gemini-col, td.gemini-col { background-color: #F8F7F2; }
+        td { font-size: 16px; color: var(--text-muted); line-height: 1.7; }
+        td strong { color: var(--text-dark); font-weight: 600; }
+        td small { display: block; font-size: 13px; margin-top: 6px; opacity: 0.8; }
+        tbody tr:hover td { background-color: #FAFAFA; }
+        tbody tr:hover td.gemini-col { background-color: #F0EFEA; }
+
+        /* === Seriöses Fazit === */
+        .verdict-container { 
+            max-width: 1100px; 
+            margin: 0 auto; 
+            background: var(--bg-white); 
+            border-radius: 16px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03); 
+            border: 1px solid var(--border-color); 
+            overflow: hidden;
+        }
+
+        .verdict-content { padding: 40px; }
+        .final-winner-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+        
+        .winner-box { position: relative; overflow: hidden; }
+        /* Hintergrund-Wasserzeichen für Winner Box */
+        .winner-box::after {
+            content: '★';
+            position: absolute;
+            bottom: -20px;
+            right: -10px;
+            font-size: 120px;
+            color: rgba(0,0,0,0.03);
+            pointer-events: none;
+        }
+
+        .winner-box.primary { grid-column: 1 / -1; background: #FAFAFA; border-left: 6px solid var(--text-dark); padding: 35px; border-radius: 12px; display: flex; flex-direction: column; gap: 15px; }
+        .winner-box.primary h4 { font-size: 24px; color: var(--text-dark); text-transform: uppercase; letter-spacing: 1px; }
+        .winner-box.primary p { font-size: 16px; line-height: 1.8; color: var(--text-muted); }
+        
+        .winner-box.secondary { background: var(--bg-light); padding: 30px; border-radius: 12px; border: 1px solid var(--border-color); }
+        .winner-box.secondary h4 { font-size: 18px; margin-bottom: 12px; color: var(--text-dark); }
+        .winner-box.secondary p { font-size: 15px; line-height: 1.7; color: var(--text-muted); }
+
+        /* === Marktübersicht (Grid) === */
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .model-card {
+            background: var(--bg-white);
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .model-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.06); }
+
+        .model-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+        .model-header h3 { font-size: 22px; color: var(--text-dark); }
+        .model-header .badge { background: var(--bg-light); padding: 5px 12px; border-radius: 20px; font-size: 12px; color: var(--text-muted); font-weight: bold; }
+
+        .model-card ul { list-style: none; margin-bottom: 30px; flex-grow: 1; }
+        .model-card ul li { font-size: 15px; color: var(--text-muted); margin-bottom: 12px; padding-left: 20px; position: relative; line-height: 1.5; }
+        .model-card ul li::before { content: '→'; position: absolute; left: 0; color: var(--accent-color); font-weight: bold; }
+
+        .relevance-box { margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border-color); }
+        .relevance-header { display: flex; justify-content: space-between; font-size: 13px; font-weight: bold; margin-bottom: 8px; text-transform: uppercase; color: var(--text-dark); }
+        .progress-bar-bg { width: 100%; height: 8px; background: var(--progress-bg); border-radius: 10px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--progress-fill); border-radius: 10px; transition: width 1.5s ease-in-out; }
+
+        /* === Trend-Analyse (KI in Zukunft) === */
+        .future-analysis {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: var(--bg-white);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        /* Linke Seite mit Utopischem Banner als Box */
+        .future-banner {
+            background: linear-gradient(rgba(15, 25, 40, 0.7), rgba(25, 35, 55, 0.8)), var(--utopian-bg) left/cover no-repeat;
+            padding: 60px 40px;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .future-banner h3 { font-size: 32px; font-weight: 300; margin-bottom: 25px; letter-spacing: 1px; }
+        .future-banner p { font-size: 16px; line-height: 1.8; opacity: 0.9; margin-bottom: 20px; }
+
+        .future-stats { padding: 60px 40px; background: var(--bg-white); }
+        .stat-item { margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid var(--border-color); }
+        .stat-item:last-child { margin-bottom: 0; border-bottom: none; padding-bottom: 0; }
+        .stat-item strong { display: block; font-size: 22px; color: var(--text-dark); margin-bottom: 8px; }
+        .stat-item span { font-size: 15px; color: var(--text-muted); line-height: 1.6; display: block; }
+
+        /* === Über Uns === */
+        .about-section { 
+            background: linear-gradient(rgba(15, 20, 25, 0.95), rgba(10, 15, 20, 0.98)), var(--utopian-bg) bottom/cover no-repeat;
+            color: var(--bg-white); 
+            padding: 100px 60px; 
+            text-align: center; 
+            margin-top: 60px; 
+            border-radius: 16px 16px 0 0; 
+        }
+        .about-container { max-width: 800px; margin: 0 auto; }
+        .about-container h3 { font-size: 32px; font-weight: 300; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 30px; }
+        .about-container p { font-size: 16px; line-height: 1.9; color: #d1d1d1; margin-bottom: 20px; }
+
+        footer { text-align: center; padding: 30px; background: #0A0A0A; color: #666; font-size: 13px; letter-spacing: 1px; }
+
+        /* === Responsive Design (Perfekt für Mobile) === */
+        @media (max-width: 1100px) {
+            .top-bar { flex-direction: column; gap: 25px; padding: 30px; }
+            .nav-menu-wrapper { width: 100%; }
+            .lang-container { position: absolute; top: 25px; right: 30px; } 
+            
+            .hero-bottom { grid-template-columns: 1fr; gap: 30px; padding: 0 30px 40px 30px; }
+            .content-section { padding: 60px 20px; }
+            .final-winner-grid { grid-template-columns: 1fr; }
+            .future-analysis { grid-template-columns: 1fr; }
+            .main-title { font-size: 15vw; }
+            .sub-title { font-size: 3vw; }
+        }
+
+        @media (max-width: 768px) {
+            .top-bar { padding: 20px; }
+            .lang-container { top: 20px; right: 20px; }
+            .nav-btn { width: 100%; max-width: 300px; margin: 0 auto; display: block; text-align: center; margin-top: 40px;}
+            
+            .nav-menu { flex-direction: column; gap: 15px; font-size: 13px; align-items: center; }
+            
+            .main-title { font-size: 40px; letter-spacing: 6px; margin-right: -6px; }
+            .sub-title { font-size: 14px; letter-spacing: 4px; margin-right: -4px; margin-top: 10px; }
+            .hero-center { padding: 20px 15px; margin-top: 20px; }
+
+            .hero-bottom { padding: 20px 15px 40px 15px; gap: 25px; }
+            .hero-card { flex-direction: column; text-align: center; align-items: center; padding: 20px; }
+            .hero-card img { width: 100%; height: 120px; }
+
+            .content-section { padding: 50px 15px; }
+            .section-header h2 { font-size: 26px; letter-spacing: 2px; }
+            .section-header p { font-size: 15px; }
+            
+            .utopian-banner { padding: 25px 20px; }
+            .utopian-banner h3 { font-size: 20px; }
+            
+            th.model-name { font-size: 18px; padding-bottom: 10px; }
+            td { font-size: 14px; padding: 15px; }
+            th { padding: 20px 15px; font-size: 12px; }
+            
+            .models-grid { grid-template-columns: 1fr; } 
+            
+            .verdict-content { padding: 25px 15px; }
+            .winner-box.primary { padding: 20px 15px; }
+            .winner-box.primary h4 { font-size: 20px; }
+            .winner-box.primary p { font-size: 15px; }
+            
+            .future-banner { padding: 40px 20px; }
+            .future-stats { padding: 30px 20px; }
+
+            .about-section { padding: 60px 20px; margin-top: 40px; }
+            .about-container h3 { font-size: 24px; }
+            .about-container p { font-size: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Startbildschirm -->
+    <div class="hero">
+        
+        <div class="top-bar">
+            <!-- Navigations-Button Links -->
+            <a href="#titanen-vergleich" class="nav-btn js-scroll-link" data-i18n="nav_start">VERGLEICH STARTEN &rarr;</a>
+            
+            <!-- Zentriertes Menü -->
+            <div class="nav-menu-wrapper">
+                <div class="nav-menu">
+                    <a href="#titanen-vergleich" class="js-scroll-link" data-i18n="nav_compare_top">Titanen-Vergleich</a>
+                    <a href="#marktuebersicht" class="js-scroll-link" data-i18n="nav_market">Marktübersicht</a>
+                    <a href="#trend-analyse" class="js-scroll-link" data-i18n="nav_trends">Trend-Analyse</a>
+                    <a href="#ueber-uns" class="js-scroll-link" data-i18n="nav_about">Über uns</a>
+                </div>
+            </div>
+
+            <!-- Language Switcher Rechts mit SVG Icon -->
+            <div class="lang-container">
+                <button class="lang-btn" id="langBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                    <span id="langText">DE</span> ▼
+                </button>
+                <div class="lang-dropdown" id="langMenu">
+                    <a href="#" data-lang="de">DE (Aktiv)</a>
+                    <a href="#" data-lang="en">EN (English)</a>
+                    <a href="#" data-lang="es">ES (Español)</a>
+                    <a href="#" data-lang="fr">FR (Français)</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-center">
+            <h1 class="main-title">T R E N D</h1>
+            <h2 class="sub-title">R E P O R T</h2>
+        </div>
+
+        <div class="hero-bottom">
+            <div class="hero-card">
+                <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=400&auto=format&fit=crop" alt="AI Abstract">
+                <div class="hero-card-text">
+                    <h4 data-i18n="card_title">Der neue Standard ist da.</h4>
+                    <p data-i18n="card_desc">Noch nie war die Leistungsdichte so hoch. Wer dominiert den Markt?</p>
+                    <a href="#marktuebersicht" class="js-scroll-link" data-i18n="card_btn">Jetzt herausfinden &rarr;</a>
+                </div>
+            </div>
+
+            <div class="hero-text-block">
+                <strong data-i18n="hero_text1_strong">Eine neue Ära der Intelligenz.</strong>
+                <span data-i18n="hero_text1">Dank rasanter Entwicklungen überbrücken wir heute die Grenzen zwischen Text, Bild und Code. Wir befinden uns an einem entscheidenden Wendepunkt.</span>
+            </div>
+
+            <div class="hero-text-block">
+                <strong data-i18n="hero_text2_strong">Drei Titanen im Fokus.</strong>
+                <span data-i18n="hero_text2">Wir vergleichen OpenAI, Anthropic und Google. Welches System bringt Ihre Produktivität auf das nächste Level?</span>
+            </div>
+        </div>
+
+        <div class="scroll-down">
+            <span data-i18n="scroll">Scroll</span>
+            <div class="line"></div>
+        </div>
+    </div>
+
+
+    <!-- 1. Sektion: Titanen-Vergleich -->
+    <div id="titanen-vergleich" class="content-section">
+        <div class="section-header">
+            <h2 data-i18n="compare_title">Der Flaggschiff-Vergleich</h2>
+            <p data-i18n="compare_desc">Die absoluten Top-Modelle im direkten Gegenüber. Basierend auf aktuellen Benchmarks, Token-Kapazitäten und echten Leistungsdaten aus der Praxis.</p>
+        </div>
+
+        <div class="table-container">
+            <!-- Optischer Banner für die Tabelle -->
+            <div class="utopian-banner">
+                <h3 data-i18n="table_banner_title">Daten & Fakten im Detail</h3>
+                <p data-i18n="table_banner_desc">Die technischen Spezifikationen der Marktführer in der direkten Gegenüberstellung.</p>
+            </div>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th data-i18n="table_metric">Metrik / Kategorie</th>
+                            <th class="model-name">ChatGPT-4o <span>von OpenAI</span></th>
+                            <th class="model-name">Claude 3.5 <span>von Anthropic</span></th>
+                            <th class="model-name gemini-col">Gemini 3.1 Pro <span>von Google DeepMind</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Kontextfenster<br><small>(Speicher pro Sitzung)</small></td>
+                            <td><strong>128.000 Token</strong><br><small>Ausreichend für ca. 300 Seiten Text.</small></td>
+                            <td><strong>200.000 Token</strong><br><small>Sehr gute Dokumenten-Analyse für bis zu 500 Seiten.</small></td>
+                            <td class="gemini-col"><strong>2.000.000+ Token</strong><br><small>Gigantisch. Analysiert ganze Bücher & Repositories.</small></td>
+                        </tr>
+                        <tr>
+                            <td>Programmieren & Code<br><small>(Logik & Architektur)</small></td>
+                            <td><strong>Sehr gut</strong><br><small>Gute API-Integration, bewährte Code-Qualität.</small></td>
+                            <td><strong>Exzellent</strong><br><small>Führend in komplexer Logik. "Artifacts" ist revolutionär.</small></td>
+                            <td class="gemini-col"><strong>Sehr gut bis Exzellent</strong><br><small>Überragend bei Analysen gigantischer Code-Basen.</small></td>
+                        </tr>
+                        <tr>
+                            <td>Multimodalität<br><small>(Medienverarbeitung)</small></td>
+                            <td><strong>Text, Bild, Audio</strong><br><small>Bietet einen extrem reaktionsschnellen Voice-Modus.</small></td>
+                            <td><strong>Text, Bild</strong><br><small>Fokus auf Text- und Dokumentenarbeit.</small></td>
+                            <td class="gemini-col"><strong>Text, Bild, Audio, Video</strong><br><small>Native Videoverarbeitung und Objekterkennung.</small></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Seriöses Fazit mit Banner -->
+        <div class="verdict-container">
+            <div class="utopian-banner">
+                <h3 data-i18n="verdict_title">Abschließende Bewertung: Der Branchenführer</h3>
+                <p data-i18n="verdict_desc">Nach detaillierter Evaluation ergibt sich ein klares Bild des aktuellen Marktes.</p>
+            </div>
+            
+            <div class="verdict-content">
+                <div class="final-winner-grid">
+                    <div class="winner-box primary">
+                        <h4 data-i18n="winner_gemini_title">Der klare Gewinner: Gemini 3.1 Pro</h4>
+                        <p data-i18n="winner_gemini_desc"><strong>Gemini 3.1 Pro geht aus diesem Vergleich als eindeutiger Gesamtsieger hervor.</strong> Die Kombination aus einem unerreichten 2-Millionen-Token-Kontextfenster und der nativen Verarbeitung von Video, Audio und Code setzt einen völlig neuen Industriestandard. Aufgaben, bei denen andere Modelle kapitulieren müssen, bewältigt Gemini mit bemerkenswerter Präzision.</p>
+                    </div>
+                    <div class="winner-box secondary">
+                        <h4 data-i18n="winner_gpt_title">Der zugängliche Pionier: ChatGPT-4o</h4>
+                        <p data-i18n="winner_gpt_desc">ChatGPT punktet weiterhin mit signifikanten Vorteilen für den Alltag. Das herausragende Ökosystem an Custom GPTs und der extrem reaktionsschnelle Voice-Modus machen es zur intuitivsten KI.</p>
+                    </div>
+                    <div class="winner-box secondary">
+                        <h4 data-i18n="winner_claude_title">Der Code-Spezialist: Claude 3.5</h4>
+                        <p data-i18n="winner_claude_desc">Wenn der primäre Fokus auf reiner Softwareentwicklung liegt, glänzt Claude. Durch das herausragende "Artifacts"-Feature hat es sich als unverzichtbares Werkzeug für Entwickler etabliert.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 2. Sektion: Marktübersicht -->
+    <div id="marktuebersicht" class="content-section">
+        <div class="section-header">
+            <h2 data-i18n="models_title">Das gesamte KI-Ökosystem im Überblick</h2>
+            <p data-i18n="models_desc">Eine detaillierte Auflistung der 12 wichtigsten Modelle auf dem Markt, ihre spezifischen Use-Cases und unsere prognostizierte Relevanz für die technologische Zukunft.</p>
+        </div>
+
+        <div class="models-grid">
+            <div class="model-card">
+                <div>
+                    <div class="model-header"><h3>Gemini 3.1 Pro</h3><span class="badge">Google</span></div>
+                    <ul>
+                        <li data-i18n="feat_gem1">Einzigartiges 2+ Millionen Token Fenster.</li>
+                        <li data-i18n="feat_gem2">Native Multimodalität (Video, Audio, Text).</li>
+                        <li data-i18n="feat_gem3">Perfekte Workspace-Integration.</li>
+                    </ul>
+                </div>
+                <div class="relevance-box">
+                    <div class="relevance-header"><span data-i18n="relevance_lbl">Zukunftsrelevanz</span> <span>98%</span></div>
+                    <div class="progress-bar-bg"><div class="progress-fill" style="width: 0%;" data-target="98%"></div></div>
+                </div>
+            </div>
+
+            <div class="model-card">
+                <div>
+                    <div class="model-header"><h3>ChatGPT-4o</h3><span class="badge">OpenAI</span></div>
+                    <ul>
+                        <li data-i18n="feat_gpt1">Unschlagbarer Voice-Modus in Echtzeit.</li>
+                        <li data-i18n="feat_gpt2">Riesiges Ökosystem an Custom GPTs.</li>
+                        <li data-i18n="feat_gpt3">Starke Advanced Data Analysis.</li>
+                    </ul>
+                </div>
+                <div class="relevance-box">
+                    <div class="relevance-header"><span data-i18n="relevance_lbl">Zukunftsrelevanz</span> <span>95%</span></div>
+                    <div class="progress-bar-bg"><div class="progress-fill" style="width: 0%;" data-target="95%"></div></div>
+                </div>
+            </div>
+
+            <div class="model-card">
+                <div>
+                    <div class="model-header"><h3>Claude 3.5 Sonnet</h3><span class="badge">Anthropic</span></div>
+                    <ul>
+                        <li data-i18n="feat_claude1">Benchmark-Leader beim Programmieren.</li>
+                        <li data-i18n="feat_claude2">"Artifacts" UI für visuellen Code.</li>
+                        <li data-i18n="feat_claude3">Sehr natürliche, differenzierte Schreibweise.</li>
+                    </ul>
+                </div>
+                <div class="relevance-box">
+                    <div class="relevance-header"><span data-i18n="relevance_lbl">Zukunftsrelevanz</span> <span>92%</span></div>
+                    <div class="progress-bar-bg"><div class="progress-fill" style="width: 0%;" data-target="92%"></div></div>
+                </div>
+            </div>
+
+            <div class="model-card">
+                <div>
+                    <div class="model-header"><h3>Perplexity AI</h3><span class="badge">Perplexity</span></div>
+                    <ul>
+                        <li data-i18n="feat_perp1">Die derzeit beste Echtzeit-Suchmaschine.</li>
+                        <li data-i18n="feat_perp2">Transparente und exakte Quellenangaben.</li>
+                        <li data-i18n="feat_perp3">Bündelt Wissen präziser als Google Search.</li>
+                    </ul>
+                </div>
+                <div class="relevance-box">
+                    <div class="relevance-header"><span data-i18n="relevance_lbl">Zukunftsrelevanz</span> <span>88%</span></div>
+                    <div class="progress-bar-bg"><div class="progress-fill" style="width: 0%;" data-target="88%"></div></div>
+                </div>
+            </div>
+
+            <div class="model-card">
+                <div>
+                    <div class="model-header"><h3>Midjourney v6</h3><span class="badge">Midjourney</span></div>
+                    <ul>
+                        <li data-i18n="feat_mid1">Unübertroffene Bildqualität.</li>
+                        <li data-i18n="feat_mid2">Fotorealistische Licht- & Texturdarstellung.</li>
+                        <li data-i18n="feat_mid3">Starke Text-in-Bild Integration.</li>
+                    </ul>
+                </div>
+                <div class="relevance-box">
+                    <div class="relevance-header"><span data-i18n="relevance_lbl">Zukunftsrelevanz</span> <span>85%</span></div>
+                    <div class="progress-bar-bg"><div class="progress-fill" style="width: 0%;" data-target="85%"></div></div>
+                </div>
+            </div>
+
+            <div class="model-card">
+                <div>
+                    <div class="model-header"><h3>Llama 3</h3><span class="badge">Meta AI</span></div>
+                    <ul>
+                        <li data-i18n="feat_llama1">Führendes Open-Source LLM.</li>
+                        <li data-i18n="feat_llama2">Kann lokal und datenschutzkonform betrieben werden.</li>
+                        <li data-i18n="feat_llama3">Enorme Kosteneffizienz für Unternehmen.</li>
+                    </ul>
+                </div>
+                <div class="relevance-box">
+                    <div class="relevance-header"><span data-i18n="relevance_lbl">Zukunftsrelevanz</span> <span>90%</span></div>
+                    <div class="progress-bar-bg"><div class="progress-fill" style="width: 0%;" data-target="90%"></div></div>
+                </div>
+            </div>
+
+            <div class="model-card">
+                <div>
+                    <div class="model-header"><h3>Sora</h3><span class="badge">OpenAI</span></div>
+                    <ul>
+                        <li data-i18n="feat_sora1">Physikalisch korrekte Videogenerierung.</li>
+                        <li data-i18n="feat_sora2">Erstellt bis zu 60-sekündige Clips aus Text.</li>
+                        <li data-i18n="feat_sora3">Revolutioniert die Film- und Werbebranche.</li>
+                    </ul>
+                </div>
+                <div class="relevance-box">
+                    <div class="relevance-header"><span data-i18n="relevance_lbl">Zukunftsrelevanz</span> <span>94%</span></div>
+                    <div class="progress-bar-bg"><div class="progress-fill" style="width: 0%;" data-target="94%"></div></div>
+                </div>
+            </div>
+
+            <div class="model-card">
+                <div>
+                    <div class="model-header"><h3>GitHub Copilot</h3><span class="badge">Microsoft</span></div>
+                    <ul>
+                        <li data-i18n="feat_copilot1">Führender KI-Paarprogrammierer.</li>
+                        <li data-i18n="feat_copilot2">Direkte Integration in alle großen IDEs.</li>
+                        <li data-i18n="feat_copilot3">Steigert die Entwickler-Produktivität enorm.</li>
+                    </ul>
+                </div>
+                <div class="relevance-box">
+                    <div class="relevance-header"><span data-i18n="relevance_lbl">Zukunftsrelevanz</span> <span>89%</span></div>
+                    <div class="progress-bar-bg"><div class="progress-fill" style="width: 0%;" data-target="89%"></div></div>
+                </div>
+            </div>
+
+            <div class="model-card">
+                <div>
+                    <div class="model-header"><h3>Mistral Large</h3><span class="badge">Mistral AI</span></div>
+                    <ul>
+                        <li data-i18n="feat_mistral1">Europäische Antwort auf GPT-4.</li>
+                        <li data-i18n="feat_mistral2">Exzellente Mehrsprachigkeit (Fokus auf EU-Sprachen).</li>
+                        <li data-i18n="feat_mistral3">Sehr kosteneffizient via API nutzbar.</li>
+                    </ul>
+                </div>
+                <div class="relevance-box">
+                    <div class="relevance-header"><span data-i18n="relevance_lbl">Zukunftsrelevanz</span> <span>86%</span></div>
+                    <div class="progress-bar-bg"><div class="progress-fill" style="width: 0%;" data-target="86%"></div></div>
+                </div>
+            </div>
+
+            <div class="model-card">
+                <div>
+                    <div class="model-header"><h3>ElevenLabs</h3><span class="badge">ElevenLabs</span></div>
+                    <ul>
+                        <li data-i18n="feat_eleven1">Fotorealistische Text-to-Speech Ausgabe.</li>
+                        <li data-i18n="feat_eleven2">Stimmenklonen mit nur wenigen Sekunden Audio.</li>
+                        <li data-i18n="feat_eleven3">Führend bei Hörbüchern und Synchronisation.</li>
+                    </ul>
+                </div>
+                <div class="relevance-box">
+                    <div class="relevance-header"><span data-i18n="relevance_lbl">Zukunftsrelevanz</span> <span>87%</span></div>
+                    <div class="progress-bar-bg"><div class="progress-fill" style="width: 0%;" data-target="87%"></div></div>
+                </div>
+            </div>
+
+            <div class="model-card">
+                <div>
+                    <div class="model-header"><h3>Runway Gen-3</h3><span class="badge">Runway</span></div>
+                    <ul>
+                        <li data-i18n="feat_runway1">Pionier für kreative KI-Videobearbeitung.</li>
+                        <li data-i18n="feat_runway2">Präzise Kamerasteuerung (Motion Brush).</li>
+                        <li data-i18n="feat_runway3">Standard-Tool für VFX Artists.</li>
+                    </ul>
+                </div>
+                <div class="relevance-box">
+                    <div class="relevance-header"><span data-i18n="relevance_lbl">Zukunftsrelevanz</span> <span>85%</span></div>
+                    <div class="progress-bar-bg"><div class="progress-fill" style="width: 0%;" data-target="85%"></div></div>
+                </div>
+            </div>
+
+            <div class="model-card">
+                <div>
+                    <div class="model-header"><h3>Suno AI</h3><span class="badge">Suno</span></div>
+                    <ul>
+                        <li data-i18n="feat_suno1">Generiert komplette, radiotaugliche Songs.</li>
+                        <li data-i18n="feat_suno2">Versteht Emotionen, Genres und Songstrukturen.</li>
+                        <li data-i18n="feat_suno3">Erzeugt passenden Gesang in Studioqualität.</li>
+                    </ul>
+                </div>
+                <div class="relevance-box">
+                    <div class="relevance-header"><span data-i18n="relevance_lbl">Zukunftsrelevanz</span> <span>82%</span></div>
+                    <div class="progress-bar-bg"><div class="progress-fill" style="width: 0%;" data-target="82%"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 3. Sektion: Trend-Analyse -->
+    <div id="trend-analyse" class="content-section">
+        <div class="section-header">
+            <h2 data-i18n="trend_title">Trend-Analyse: Die Zukunft der KI</h2>
+            <p data-i18n="trend_desc">Eine fundierte Analyse der kommenden Entwicklungsstufen und Paradigmenwechsel generativer KI-Systeme.</p>
+        </div>
+
+        <div class="future-analysis">
+            <!-- Linke Seite mit atmosphärischem Banner -->
+            <div class="future-banner">
+                <h3 data-i18n="trend_h3">Vom Chatbot zum autonomen Agenten</h3>
+                <p data-i18n="trend_p1">Die aktuelle Generation von KI-Modellen agiert vorwiegend reaktiv und wartet auf menschliche Prompts. Die Technologie der nahen Zukunft wird jedoch von <strong>"Agentic AI" (Agenten-basierten Systemen)</strong> dominiert sein.</p>
+                <p data-i18n="trend_p2">Diese autarken Systeme werden nicht nur Texte verfassen, sondern eigenständig komplexe, mehrstufige Arbeitsabläufe über verschiedene Software-Schnittstellen (APIs) hinweg planen und exekutieren. Der Fokus verschiebt sich drastisch von der reinen Wissensgenerierung zur aktiven Prozessabwicklung in Unternehmen.</p>
+                <p data-i18n="trend_p3">Zudem werden branchenspezifische Small Language Models (SLMs) an Bedeutung gewinnen. Anstatt auf gigantische Alleskönner zu setzen, trainieren Firmen hocheffiziente, spezialisierte Modelle für medizinische, juristische oder architektonische Fachbereiche, die lokal betrieben werden können.</p>
+            </div>
+            
+            <div class="future-stats">
+                <div class="stat-item">
+                    <strong data-i18n="trend_stat1_title">Multimodalität 2.0</strong>
+                    <span data-i18n="trend_stat1_desc">KIs der nächsten Generation verarbeiten Audio und Video in Echtzeit. Die Kamera Ihres Smartphones oder Ihrer Smart Glasses wird zum ständigen, visuellen Kontext für Ihren persönlichen Assistenten.</span>
+                </div>
+                <div class="stat-item">
+                    <strong data-i18n="trend_stat2_title">Edge AI & Privacy</strong>
+                    <span data-i18n="trend_stat2_desc">Durch effizientere Modell-Architekturen wandert die Rechenleistung weg aus der Cloud, direkt auf lokale Endgeräte (Smartphones, Laptops). Das garantiert maximale Datenverarbeitung ohne Latenz und absolute DSGVO-Konformität.</span>
+                </div>
+                <div class="stat-item">
+                    <strong data-i18n="trend_stat3_title">Synthetische Daten</strong>
+                    <span data-i18n="trend_stat3_desc">Da das qualitativ hochwertige, menschliche Trainingsmaterial im Internet zur Neige geht, trainieren sich KIs künftig gegenseitig durch künstlich generierte, synthetische Datensätze, was zu einem exponentiellen Leistungssprung führen wird.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 4. Sektion: Über Uns -->
+    <div id="ueber-uns" class="about-section">
+        <div class="about-container">
+            <h3 data-i18n="about_title">Über TrendReport</h3>
+            <p data-i18n="about_p1">Willkommen bei TrendReport, Ihrer primären Anlaufstelle für technologische Präzision und Fortschritt in einer von KI geprägten Welt.</p>
+            <p data-i18n="about_p2">Wir haben es uns zur Aufgabe gemacht, den unübersichtlichen Markt der Künstlichen Intelligenz zu filtern, zu analysieren und für Sie nutzbar zu machen. <strong>Wöchentlich</strong> veröffentlichen wir detaillierte Benchmarks, fundierte Informationen zu neuen KI-Entwicklungen und ordnen globale Branchentrends ein.</p>
+            <p data-i18n="about_p3">Unser Anspruch ist es nicht nur, theoretisches Wissen zu vermitteln, sondern Ihnen konkrete, praxisnahe Empfehlungen für Ihren Workflow zu liefern. Von den besten Bildgeneratoren bis hin zur sichersten Enterprise-API: Wir testen die Werkzeuge, damit Sie stets einen technologischen Schritt voraus bleiben.</p>
+        </div>
+    </div>
+
+    <footer>
+        &copy; <span id="year">2026</span> TREND REPORT. Unabhängige Analysen und datengestützte Vergleiche.
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // 1. Smooth Scrolling
+            document.querySelectorAll('.js-scroll-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault(); 
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+
+            // 2. Slide-In Animation & Progress Bar
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        
+                        if(entry.target.id === 'marktuebersicht') {
+                            const bars = entry.target.querySelectorAll('.progress-fill');
+                            setTimeout(() => {
+                                bars.forEach(bar => {
+                                    bar.style.width = bar.getAttribute('data-target');
+                                });
+                            }, 300);
+                        }
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.content-section').forEach(section => {
+                observer.observe(section);
+            });
+
+            // 3. Dropdown Logik (Sprache)
+            const langBtn = document.getElementById('langBtn');
+            const langMenu = document.getElementById('langMenu');
+
+            langBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                langMenu.classList.toggle('show');
+            });
+
+            document.addEventListener('click', () => {
+                langMenu.classList.remove('show');
+            });
+
+            // 4. Übersetzungssystem
+            const translations = {
+                de: {
+                    nav_start: "VERGLEICH STARTEN →", nav_compare_top: "Titanen-Vergleich", nav_market: "Marktübersicht", nav_trends: "Trend-Analyse", nav_about: "Über uns",
+                    card_title: "Der neue Standard ist da.", card_desc: "Noch nie war die Leistungsdichte so hoch. Wer dominiert den Markt?", card_btn: "Jetzt herausfinden →",
+                    hero_text1_strong: "Eine neue Ära der Intelligenz.", hero_text1: "Dank rasanter Entwicklungen überbrücken wir heute die Grenzen zwischen Text, Bild und Code.",
+                    hero_text2_strong: "Drei Titanen im Fokus.", hero_text2: "Wir vergleichen OpenAI, Anthropic und Google. Welches System bringt Ihre Produktivität auf das nächste Level?",
+                    scroll: "Scroll", 
+                    compare_title: "Der Flaggschiff-Vergleich", compare_desc: "Die absoluten Top-Modelle im direkten Gegenüber. Basierend auf echten Leistungsdaten aus der Praxis.", table_metric: "Metrik / Kategorie",
+                    table_banner_title: "Daten & Fakten im Detail", table_banner_desc: "Die technischen Spezifikationen der Marktführer in der direkten Gegenüberstellung.",
+                    verdict_title: "Abschließende Bewertung: Der Branchenführer", verdict_desc: "Nach detaillierter Evaluation ergibt sich ein klares Bild des aktuellen Marktes.",
+                    winner_gemini_title: "Der klare Gewinner: Gemini 3.1 Pro", winner_gemini_desc: "Gemini 3.1 Pro geht als eindeutiger Gesamtsieger hervor. Das 2-Millionen-Token-Fenster setzt einen neuen Standard.",
+                    winner_gpt_title: "Der zugängliche Pionier: ChatGPT-4o", winner_gpt_desc: "Punktet mit Vorteilen für den Alltag, dem Ökosystem an Custom GPTs und einem reaktionsschnellen Voice-Modus.",
+                    winner_claude_title: "Der Code-Spezialist: Claude 3.5", winner_claude_desc: "Wenn der Fokus auf Softwareentwicklung liegt, glänzt Claude. 'Artifacts' ist unverzichtbar geworden.",
+                    models_title: "Das gesamte KI-Ökosystem im Überblick", models_desc: "Eine detaillierte Auflistung der 12 wichtigsten Modelle, ihre Use-Cases und unsere prognostizierte Relevanz.", relevance_lbl: "Zukunftsrelevanz",
+                    feat_gem1: "Einzigartiges 2+ Millionen Token Fenster.", feat_gem2: "Native Multimodalität (Video, Audio, Text).", feat_gem3: "Perfekte Workspace-Integration.",
+                    feat_gpt1: "Unschlagbarer Voice-Modus in Echtzeit.", feat_gpt2: "Riesiges Ökosystem an Custom GPTs.", feat_gpt3: "Starke Advanced Data Analysis.",
+                    feat_claude1: "Benchmark-Leader beim Programmieren.", feat_claude2: "'Artifacts' UI für visuellen Code.", feat_claude3: "Sehr natürliche, differenzierte Schreibweise.",
+                    feat_perp1: "Die derzeit beste Echtzeit-Suchmaschine.", feat_perp2: "Transparente und exakte Quellenangaben.", feat_perp3: "Bündelt Wissen präziser als Google Search.",
+                    feat_mid1: "Unübertroffene Bildqualität.", feat_mid2: "Fotorealistische Licht- & Texturdarstellung.", feat_mid3: "Starke Text-in-Bild Integration.",
+                    feat_llama1: "Führendes Open-Source LLM.", feat_llama2: "Kann lokal betrieben werden.", feat_llama3: "Enorme Kosteneffizienz für Unternehmen.",
+                    feat_sora1: "Physikalisch korrekte Videogenerierung.", feat_sora2: "Erstellt bis zu 60-sekündige Clips aus Text.", feat_sora3: "Revolutioniert die Filmbranche.",
+                    feat_copilot1: "Führender KI-Paarprogrammierer.", feat_copilot2: "Direkte Integration in alle großen IDEs.", feat_copilot3: "Steigert die Entwickler-Produktivität.",
+                    feat_mistral1: "Europäische Antwort auf GPT-4.", feat_mistral2: "Exzellente Mehrsprachigkeit (Fokus auf EU).", feat_mistral3: "Sehr kosteneffizient via API.",
+                    feat_eleven1: "Fotorealistische Text-to-Speech Ausgabe.", feat_eleven2: "Stimmenklonen mit nur wenigen Sekunden Audio.", feat_eleven3: "Führend bei Synchronisation.",
+                    feat_runway1: "Pionier für kreative KI-Videobearbeitung.", feat_runway2: "Präzise Kamerasteuerung (Motion Brush).", feat_runway3: "Standard-Tool für VFX Artists.",
+                    feat_suno1: "Generiert komplette, radiotaugliche Songs.", feat_suno2: "Versteht Emotionen und Genres.", feat_suno3: "Erzeugt Gesang in Studioqualität.",
+                    trend_title: "Trend-Analyse: Die Zukunft der KI", trend_desc: "Eine fundierte Analyse der kommenden Entwicklungsstufen.",
+                    trend_h3: "Vom Chatbot zum autonomen Agenten", trend_p1: "Zukunftstechnologie wird von 'Agentic AI' dominiert sein.", trend_p2: "Systeme werden Arbeitsabläufe planen und ausführen.", trend_p3: "Zudem werden branchenspezifische SLMs (Small Language Models) an Bedeutung gewinnen.",
+                    trend_stat1_title: "Multimodalität 2.0", trend_stat1_desc: "Echtzeit-Verarbeitung der physischen Welt durch Sensoren.", trend_stat2_title: "Edge AI & Privacy", trend_stat2_desc: "Lokale Rechenleistung für absoluten Datenschutz ohne Cloud.", trend_stat3_title: "Synthetische Daten", trend_stat3_desc: "KIs trainieren sich gegenseitig durch generierte Datensätze für Leistungssprünge.",
+                    about_title: "Über TrendReport", about_p1: "Willkommen bei TrendReport, Ihrer Anlaufstelle für technologische Präzision.", about_p2: "Wir veröffentlichen wöchentlich fundierte Informationen zu KI-Entwicklungen.", about_p3: "Wir liefern konkrete, praxisnahe Empfehlungen für Ihren Workflow."
+                },
+                en: {
+                    nav_start: "START COMPARISON →", nav_compare_top: "Titan Comparison", nav_market: "Market Overview", nav_trends: "Trend Analysis", nav_about: "About us",
+                    card_title: "The new standard is here.", card_desc: "Performance density has never been this high. Who dominates?", card_btn: "Find out now →",
+                    hero_text1_strong: "A new era of intelligence.", hero_text1: "Rapid developments bridge the gaps between text, image, and code today.",
+                    hero_text2_strong: "Three titans in focus.", hero_text2: "We compare OpenAI, Anthropic, and Google. Which system elevates your productivity?",
+                    scroll: "Scroll", 
+                    compare_title: "The Flagship Comparison", compare_desc: "The absolute top models face to face. Based on real-world performance data.", table_metric: "Metric / Category",
+                    table_banner_title: "Facts & Figures in Detail", table_banner_desc: "The technical specifications of the market leaders compared.",
+                    verdict_title: "Final Verdict: The Industry Leader", verdict_desc: "After detailed evaluation, a clear picture emerges.",
+                    winner_gemini_title: "The Clear Winner: Gemini 3.1 Pro", winner_gemini_desc: "Gemini 3.1 Pro emerges as the undisputed overall winner. The 2M token window sets a new standard.",
+                    winner_gpt_title: "The Accessible Pioneer: ChatGPT-4o", winner_gpt_desc: "Scores with everyday advantages, an ecosystem of Custom GPTs, and a fast voice mode.",
+                    winner_claude_title: "The Code Specialist: Claude 3.5", winner_claude_desc: "When the focus is on software development, Claude shines. 'Artifacts' is indispensable.",
+                    models_title: "The Entire AI Ecosystem at a Glance", models_desc: "A detailed list of the 12 most important models, use-cases, and future predictions.", relevance_lbl: "Future Relevance",
+                    feat_gem1: "Unique 2+ million token window.", feat_gem2: "Native multimodality (Video, Audio, Text).", feat_gem3: "Perfect Workspace integration.",
+                    feat_gpt1: "Unbeatable real-time Voice Mode.", feat_gpt2: "Huge ecosystem of Custom GPTs.", feat_gpt3: "Strong Advanced Data Analysis.",
+                    feat_claude1: "Benchmark leader in programming.", feat_claude2: "'Artifacts' UI for visual coding.", feat_claude3: "Very natural, nuanced writing style.",
+                    feat_perp1: "Currently the best real-time search engine.", feat_perp2: "Transparent and exact source citations.", feat_perp3: "Bundles knowledge better than Google Search.",
+                    feat_mid1: "Unsurpassed image quality.", feat_mid2: "Photorealistic lighting & textures.", feat_mid3: "Strong text-in-image integration.",
+                    feat_llama1: "Leading open-source LLM.", feat_llama2: "Can be run locally.", feat_llama3: "Enormous cost efficiency.",
+                    feat_sora1: "Physically accurate video generation.", feat_sora2: "Creates up to 60-second clips.", feat_sora3: "Revolutionizes the film industry.",
+                    feat_copilot1: "Leading AI pair programmer.", feat_copilot2: "Direct integration into IDEs.", feat_copilot3: "Massively boosts developer productivity.",
+                    feat_mistral1: "European answer to GPT-4.", feat_mistral2: "Excellent multilinguality.", feat_mistral3: "Highly cost-efficient via API.",
+                    feat_eleven1: "Photorealistic text-to-speech output.", feat_eleven2: "Voice cloning with seconds of audio.", feat_eleven3: "Leading in dubbing.",
+                    feat_runway1: "Pioneer in creative AI video editing.", feat_runway2: "Precise camera control.", feat_runway3: "Standard tool for VFX artists.",
+                    feat_suno1: "Generates complete, radio-ready songs.", feat_suno2: "Understands emotions and genres.", feat_suno3: "Produces studio-quality vocals.",
+                    trend_title: "Trend Analysis: The Future of AI", trend_desc: "A sound analysis of upcoming development stages.",
+                    trend_h3: "From Chatbot to Autonomous Agent", trend_p1: "Future tech will be dominated by 'Agentic AI'.", trend_p2: "Systems will plan and execute workflows independently.", trend_p3: "Industry-specific SLMs (Small Language Models) will also gain importance.",
+                    trend_stat1_title: "Multimodality 2.0", trend_stat1_desc: "Real-time processing via sensors.", trend_stat2_title: "Edge AI & Privacy", trend_stat2_desc: "Local computing power for maximum privacy.", trend_stat3_title: "Synthetic Data", trend_stat3_desc: "AIs train each other via generated datasets for massive performance leaps.",
+                    about_title: "About TrendReport", about_p1: "Welcome to TrendReport, your hub for technological precision.", about_p2: "We publish well-founded information on AI developments weekly.", about_p3: "We provide concrete, practical recommendations for your workflow."
+                },
+                es: {
+                    nav_start: "INICIAR COMPARACIÓN →", nav_compare_top: "Comparación", nav_market: "Visión del Mercado", nav_trends: "Análisis de Tendencias", nav_about: "Sobre nosotros",
+                    card_title: "El nuevo estándar está aquí.", card_desc: "La densidad de rendimiento nunca ha sido tan alta.", card_btn: "Descúbrelo ahora →",
+                    hero_text1_strong: "Una nueva era de inteligencia.", hero_text1: "Cerrando brechas entre texto, imagen y código.",
+                    hero_text2_strong: "Tres titanes en foco.", hero_text2: "Comparamos OpenAI, Anthropic y Google. ¿Qué sistema eleva tu productividad?",
+                    scroll: "Bajar", 
+                    compare_title: "La Comparación Insignia", compare_desc: "Los modelos top frente a frente.", table_metric: "Métrica / Categoría",
+                    table_banner_title: "Datos y Cifras en Detalle", table_banner_desc: "Especificaciones técnicas de los líderes.",
+                    verdict_title: "Veredicto Final: El Líder", verdict_desc: "Después de una evaluación detallada, surge una imagen clara.",
+                    winner_gemini_title: "El Claro Ganador: Gemini 3.1 Pro", winner_gemini_desc: "Gemini 3.1 Pro emerge como el ganador indiscutible.",
+                    winner_gpt_title: "El Pionero Accesible: ChatGPT-4o", winner_gpt_desc: "Destaca con ventajas diarias y un ecosistema de GPTs.",
+                    winner_claude_title: "El Especialista en Código: Claude 3.5", winner_claude_desc: "Cuando el enfoque es el software, Claude brilla.",
+                    models_title: "Todo el ecosistema de IA", models_desc: "Lista de los 12 modelos más importantes.", relevance_lbl: "Relevancia Futura",
+                    feat_gem1: "Ventana única de 2+ millones de tokens.", feat_gem2: "Multimodalidad nativa.", feat_gem3: "Integración perfecta con Workspace.",
+                    feat_gpt1: "Modo de voz imbatible.", feat_gpt2: "Gran ecosistema de GPTs.", feat_gpt3: "Fuerte análisis de datos.",
+                    feat_claude1: "Líder en programación.", feat_claude2: "Interfaz 'Artifacts'.", feat_claude3: "Escritura natural y matizada.",
+                    feat_perp1: "El mejor buscador en tiempo real.", feat_perp2: "Citas de fuentes exactas.", feat_perp3: "Mejor agrupación de conocimiento.",
+                    feat_mid1: "Calidad de imagen insuperable.", feat_mid2: "Texturas fotorrealistas.", feat_mid3: "Gran integración de texto.",
+                    feat_llama1: "LLM de código abierto líder.", feat_llama2: "Puede ejecutarse localmente.", feat_llama3: "Alta rentabilidad.",
+                    feat_sora1: "Generación de video precisa.", feat_sora2: "Clips de hasta 60 segundos.", feat_sora3: "Revoluciona el cine.",
+                    feat_copilot1: "Asistente de código líder.", feat_copilot2: "Integración en IDEs.", feat_copilot3: "Aumenta la productividad.",
+                    feat_mistral1: "Respuesta europea a GPT-4.", feat_mistral2: "Excelente soporte multilingüe.", feat_mistral3: "Muy rentable vía API.",
+                    feat_eleven1: "Voz fotorrealista.", feat_eleven2: "Clonación de voz.", feat_eleven3: "Líder en doblaje.",
+                    feat_runway1: "Pionero en edición de video.", feat_runway2: "Control de cámara.", feat_runway3: "Herramienta VFX.",
+                    feat_suno1: "Genera canciones completas.", feat_suno2: "Entiende emociones.", feat_suno3: "Voces de estudio.",
+                    trend_title: "Análisis: El Futuro de la IA", trend_desc: "Un análisis de las próximas etapas.",
+                    trend_h3: "De Chatbot a Agente Autónomo", trend_p1: "El futuro será dominado por la 'IA de Agentes'.", trend_p2: "Sistemas que ejecutan flujos de trabajo.", trend_p3: "Modelos pequeños y específicos ganarán importancia.",
+                    trend_stat1_title: "Multimodalidad 2.0", trend_stat1_desc: "Procesamiento en tiempo real.", trend_stat2_title: "Edge AI & Privacy", trend_stat2_desc: "Computación local para privacidad máxima.", trend_stat3_title: "Datos Sintéticos", trend_stat3_desc: "IAs se entrenan a sí mismas para saltos de rendimiento.",
+                    about_title: "Sobre TrendReport", about_p1: "Bienvenido a TrendReport.", about_p2: "Publicamos información semanal.", about_p3: "Recomendaciones prácticas para tu flujo de trabajo."
+                },
+                fr: {
+                    nav_start: "COMMENCER →", nav_compare_top: "Comparaison", nav_market: "Aperçu du Marché", nav_trends: "Analyse des Tendances", nav_about: "À propos",
+                    card_title: "Le nouveau standard est là.", card_desc: "Qui domine le marché ?", card_btn: "Découvrez-le →",
+                    hero_text1_strong: "Une nouvelle ère d'intelligence.", hero_text1: "Les développements comblent les fossés entre texte et code.",
+                    hero_text2_strong: "Trois titans en point de mire.", hero_text2: "Quel système élève votre productivité ?",
+                    scroll: "Défiler", 
+                    compare_title: "La Comparaison Phare", compare_desc: "Les modèles phares face à face.", table_metric: "Métrique / Catégorie",
+                    table_banner_title: "Faits & Chiffres", table_banner_desc: "Les spécifications techniques comparées.",
+                    verdict_title: "Verdict Final : Le Leader", verdict_desc: "Une image claire du marché actuel se dégage.",
+                    winner_gemini_title: "Le Grand Gagnant : Gemini 3.1 Pro", winner_gemini_desc: "Gemini s'impose comme le vainqueur incontesté.",
+                    winner_gpt_title: "Le Pionnier Accessible : ChatGPT-4o", winner_gpt_desc: "Se distingue par un écosystème de GPTs et un mode vocal.",
+                    winner_claude_title: "Le Spécialiste du Code : Claude 3.5", winner_claude_desc: "Lorsque l'accent est mis sur le développement, Claude brille.",
+                    models_title: "L'écosystème de l'IA", models_desc: "Les 12 modèles les plus importants.", relevance_lbl: "Pertinence",
+                    feat_gem1: "Fenêtre unique de 2M+ tokens.", feat_gem2: "Multimodalité native.", feat_gem3: "Intégration Workspace parfaite.",
+                    feat_gpt1: "Mode vocal imbattable.", feat_gpt2: "Grand écosystème de GPTs.", feat_gpt3: "Excellente analyse de données.",
+                    feat_claude1: "Leader en programmation.", feat_claude2: "Interface 'Artifacts'.", feat_claude3: "Écriture nuancée.",
+                    feat_perp1: "Meilleur moteur de recherche.", feat_perp2: "Citations exactes.", feat_perp3: "Regroupe bien les connaissances.",
+                    feat_mid1: "Qualité d'image inégalée.", feat_mid2: "Textures photoréalistes.", feat_mid3: "Génération de texte dans l'image.",
+                    feat_llama1: "LLM open-source leader.", feat_llama2: "Peut fonctionner localement.", feat_llama3: "Très rentable.",
+                    feat_sora1: "Génération vidéo précise.", feat_sora2: "Clips jusqu'à 60 secondes.", feat_sora3: "Révolutionne le cinéma.",
+                    feat_copilot1: "Assistant de codage leader.", feat_copilot2: "Intégration IDE.", feat_copilot3: "Augmente la productivité.",
+                    feat_mistral1: "Réponse européenne à GPT-4.", feat_mistral2: "Excellent multilinguisme.", feat_mistral3: "Très rentable via API.",
+                    feat_eleven1: "Voix photoréalistes.", feat_eleven2: "Clonage vocal rapide.", feat_eleven3: "Leader du doublage.",
+                    feat_runway1: "Pionnier de la vidéo créative.", feat_runway2: "Contrôle de caméra.", feat_runway3: "Outil VFX.",
+                    feat_suno1: "Génère des chansons.", feat_suno2: "Comprend les émotions.", feat_suno3: "Voix de studio.",
+                    trend_title: "Analyse : L'Avenir de l'IA", trend_desc: "Une analyse des prochaines étapes.",
+                    trend_h3: "Du Chatbot à l'Agent", trend_p1: "La technologie sera dominée par l'IA d'agents.", trend_p2: "Les systèmes exécuteront des tâches indépendamment.", trend_p3: "Les modèles spécialisés (SLMs) prendront de l'importance.",
+                    trend_stat1_title: "Multimodalité 2.0", trend_stat1_desc: "Traitement via capteurs.", trend_stat2_title: "Edge AI & Privacy", trend_stat2_desc: "Informatique locale.", trend_stat3_title: "Données Synthétiques", trend_stat3_desc: "L'IA s'entraîne elle-même pour plus de performances.",
+                    about_title: "À propos de TrendReport", about_p1: "Bienvenue sur TrendReport.", about_p2: "Nous publions des informations hebdomadaires.", about_p3: "Nous fournissons des recommandations pratiques."
+                }
+            };
+
+            // Sprachwechsel Logik
+            document.querySelectorAll('#langMenu a').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const selectedLang = e.target.getAttribute('data-lang');
+                    
+                    const spanText = document.getElementById('langText');
+                    spanText.innerText = selectedLang.toUpperCase();
+
+                    document.querySelectorAll('[data-i18n]').forEach(el => {
+                        const key = el.getAttribute('data-i18n');
+                        if(translations[selectedLang] && translations[selectedLang][key]) {
+                            el.innerText = translations[selectedLang][key];
+                        }
+                    });
+
+                    document.querySelectorAll('#langMenu a').forEach(link => {
+                        let text = link.innerText.replace(' (Aktiv)', '');
+                        if(link.getAttribute('data-lang') === selectedLang) {
+                            link.innerText = text + ' (Aktiv)';
+                        } else {
+                            link.innerText = text;
+                        }
+                    });
+
+                    langMenu.classList.remove('show');
+                });
+            });
+            
+            document.getElementById('year').innerText = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>
