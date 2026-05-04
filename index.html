@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KI TOOLS VERGLEICH | Marktübersicht</title>
+    <title>KI TOOLS | Vergleich & Marktübersicht</title>
     <style>
         /* === Farbpalette & Variablen === */
         :root {
@@ -51,58 +51,62 @@
             padding-bottom: 80px; 
         }
 
-        /* Zentriertes Menü Setup */
+        /* Top Bar Layout */
         .top-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 40px 60px;
-            gap: 20px;
+            padding: 30px 60px;
         }
 
-        .hamburger {
+        /* Hamburger Button (nur auf Mobile sichtbar) */
+        .hamburger-btn {
             display: none;
             background: transparent;
             border: none;
             color: #fff;
             cursor: pointer;
-            padding: 5px;
-            z-index: 2001;
+            z-index: 1000;
         }
 
-        .hamburger svg { width: 32px; height: 32px; }
+        .hamburger-btn svg { width: 32px; height: 32px; }
 
-        .close-menu {
+        /* Close Button im Mobile Menu */
+        .close-btn {
             display: none;
             background: transparent;
             border: none;
             color: #fff;
             font-size: 36px;
-            position: absolute;
-            top: 20px;
-            right: 20px;
             cursor: pointer;
+            position: absolute;
+            top: 25px;
+            right: 30px;
         }
 
-        .desktop-btn {
+        .nav-btn {
             background: rgba(255, 255, 255, 0.9);
             color: var(--text-dark);
-            padding: 12px 26px;
+            padding: 14px 32px;
             border-radius: 30px;
             font-weight: bold;
-            font-size: 13px;
+            font-size: 14px;
             transition: background 0.3s, transform 0.2s;
             cursor: pointer;
             border: none;
             letter-spacing: 1px;
-            white-space: nowrap;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-top: 35px;
         }
 
-        .desktop-btn:hover {
+        .nav-btn:hover {
             background: #fff;
             transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
+        /* Desktop Navigation Container */
         .nav-menu-wrapper {
             flex: 1;
             display: flex;
@@ -111,39 +115,27 @@
 
         .nav-menu {
             display: flex;
-            gap: 35px;
+            gap: 40px;
             font-size: 13px;
             font-weight: 500;
             letter-spacing: 2px;
             text-transform: uppercase;
             flex-wrap: wrap;
             justify-content: center;
-            align-items: center;
         }
 
         .nav-menu a {
             transition: opacity 0.3s;
             cursor: pointer;
-            position: relative;
         }
 
-        .nav-menu a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 0;
-            background-color: #fff;
-            transition: width 0.3s ease;
-        }
-
-        .nav-menu a:hover::after { width: 100%; }
+        .nav-menu a:hover { opacity: 0.7; }
 
         /* === Language Switcher === */
         .lang-container {
             position: relative;
             display: inline-block;
+            z-index: 1000;
         }
 
         .lang-btn {
@@ -181,7 +173,6 @@
             visibility: hidden;
             transform: translateY(-10px);
             transition: all 0.3s ease;
-            z-index: 1000;
         }
 
         .lang-dropdown.show { opacity: 1; visibility: visible; transform: translateY(0); }
@@ -199,7 +190,7 @@
         .lang-dropdown a:last-child { border-bottom: none; }
         .lang-dropdown a:hover { background: #f9f9f9; color: var(--text-dark); }
 
-        /* Zentrierter Titel */
+        /* Zentrierter Titel (KI TOOLS) */
         .hero-center {
             flex: 1;
             display: flex;
@@ -207,39 +198,38 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            margin-top: -5vh; 
-            padding: 40px 20px;
+            padding: 20px;
         }
 
         .main-title {
             font-size: 8vw;
             font-weight: 300;
-            letter-spacing: 0.15em;
-            margin-right: -0.15em; 
-            line-height: 1;
+            letter-spacing: 0.2em;
+            margin-right: -0.2em; 
+            line-height: 1.1;
+            white-space: nowrap; /* Verhindert das Umbrechen auf Handys */
         }
 
         .sub-title {
             font-size: 1.5vw;
             letter-spacing: 0.8em;
             margin-right: -0.8em;
-            margin-top: 20px;
+            margin-top: 10px;
             font-weight: 300;
-            opacity: 0.8;
+            opacity: 0.9;
         }
 
-        /* Mobile CTA (Unter dem Titel) */
-        .mobile-cta {
-            display: none;
-            background: rgba(255, 255, 255, 0.9);
-            color: var(--text-dark);
-            padding: 14px 30px;
-            border-radius: 30px;
-            font-weight: bold;
-            font-size: 14px;
-            margin-top: 40px;
-            letter-spacing: 1px;
+        .date-badge {
+            margin-top: 25px;
+            font-size: 13px;
+            letter-spacing: 2px;
             text-transform: uppercase;
+            background: rgba(255,255,255,0.1);
+            padding: 8px 20px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(5px);
+            font-weight: 600;
         }
 
         .hero-bottom {
@@ -310,21 +300,13 @@
         .section-header h2 { font-size: 38px; font-weight: 300; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; color: var(--text-dark); }
         .section-header p { color: var(--text-muted); max-width: 800px; margin: 0 auto; line-height: 1.8; font-size: 16px; }
 
-        /* Utopischer Banner für Boxen */
         .utopian-banner {
             background: linear-gradient(rgba(15, 25, 40, 0.8), rgba(25, 35, 55, 0.7)), var(--utopian-bg) center/cover no-repeat;
             padding: 35px 40px;
             color: #fff;
         }
 
-        .utopian-banner h3 {
-            font-size: 24px;
-            font-weight: 300;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-        
+        .utopian-banner h3 { font-size: 24px; font-weight: 300; letter-spacing: 2px; margin-bottom: 10px; text-transform: uppercase; }
         .utopian-banner p { font-size: 15px; opacity: 0.9; line-height: 1.6; }
 
         /* === Die Tabelle (Titanen-Vergleich) === */
@@ -363,17 +345,7 @@
 
         .verdict-content { padding: 40px; }
         .final-winner-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
-        
         .winner-box { position: relative; overflow: hidden; }
-        .winner-box::after {
-            content: '★';
-            position: absolute;
-            bottom: -20px;
-            right: -10px;
-            font-size: 120px;
-            color: rgba(0,0,0,0.03);
-            pointer-events: none;
-        }
 
         .winner-box.primary { grid-column: 1 / -1; background: #FAFAFA; border-left: 6px solid var(--text-dark); padding: 35px; border-radius: 12px; display: flex; flex-direction: column; gap: 15px; }
         .winner-box.primary h4 { font-size: 24px; color: var(--text-dark); text-transform: uppercase; letter-spacing: 1px; }
@@ -437,7 +409,7 @@
             justify-content: center;
         }
 
-        .future-banner h3 { font-size: 32px; font-weight: 300; margin-bottom: 25px; letter-spacing: 1px; }
+        .future-banner h3 { font-size: 32px; font-weight: 300; margin-bottom: 25px; letter-spacing: 1px; line-height: 1.3;}
         .future-banner p { font-size: 16px; line-height: 1.8; opacity: 0.9; margin-bottom: 20px; }
 
         .future-stats { padding: 60px 40px; background: var(--bg-white); }
@@ -461,7 +433,7 @@
 
         footer { text-align: center; padding: 30px; background: #0A0A0A; color: #666; font-size: 13px; letter-spacing: 1px; }
 
-        /* === Responsive Design (Handy & Tablet) === */
+        /* === Responsive Design (Desktop/Tablet) === */
         @media (max-width: 1100px) {
             .hero-bottom { grid-template-columns: 1fr; gap: 30px; padding: 0 30px 40px 30px; }
             .content-section { padding: 60px 20px; }
@@ -469,64 +441,63 @@
             .future-analysis { grid-template-columns: 1fr; }
         }
 
+        /* === Responsive Design (Perfekt für Mobile Handys) === */
         @media (max-width: 768px) {
-            /* Mobile Menü Anpassungen */
-            .top-bar {
-                flex-direction: row; /* Hält Hamburger und Sprache in einer Zeile */
-                justify-content: space-between;
-                padding: 20px;
-                position: relative;
+            .top-bar { 
+                padding: 20px; 
+                justify-content: space-between; /* Links Hamburger, Rechts Lang */
             }
 
-            .hamburger { display: block; }
-            .desktop-btn { display: none; } /* Versteckt den Button oben links auf dem Handy */
-            
-            /* Slide-Out Menü Design */
+            .hamburger-btn { display: block; }
+            .close-btn { display: block; }
+
+            /* Mobile Sidebar Menu Style */
             .nav-menu-wrapper {
                 position: fixed;
                 top: 0;
-                left: -100%;
+                left: -100%; /* Versteckt außerhalb des Bildschirms */
                 width: 280px;
                 height: 100vh;
-                background: rgba(15, 25, 35, 0.98);
+                background: rgba(15, 20, 25, 0.98);
                 backdrop-filter: blur(15px);
-                z-index: 2000;
-                transition: left 0.3s ease-in-out;
-                justify-content: flex-start;
-                padding-top: 80px;
-                box-shadow: 2px 0 20px rgba(0,0,0,0.5);
-            }
-
-            .nav-menu-wrapper.open { left: 0; }
-            .close-menu { display: block; }
-
-            .nav-menu {
+                z-index: 9999;
                 flex-direction: column;
-                align-items: flex-start;
-                padding: 0 30px;
-                gap: 30px;
-                font-size: 16px;
+                justify-content: flex-start; /* Auswahlmöglichkeiten weiter oben */
+                padding: 100px 30px 30px; 
+                transition: left 0.3s ease-in-out;
+                box-shadow: 5px 0 25px rgba(0,0,0,0.5);
             }
 
-            .nav-menu a::after { display: none; } /* Hover-Strich im Handy-Menü aus */
+            .nav-menu-wrapper.active { left: 0; }
 
-            /* Zeigt den neuen CTA Button auf dem Startbildschirm */
-            .mobile-cta { display: inline-block; }
+            .nav-menu { 
+                flex-direction: column; 
+                gap: 25px; 
+                font-size: 14px; 
+                align-items: flex-start; /* Links ausgerichtet im Slide-Menü */
+            }
 
-            .lang-container { position: static; }
+            .lang-container { position: relative; } /* Normal im Flow der Top-Bar */
             
-            /* Schriften und Abstände anpassen */
-            .main-title { font-size: 46px; letter-spacing: 8px; margin-right: -8px; }
-            .sub-title { font-size: 16px; letter-spacing: 6px; margin-right: -6px; margin-top: 15px; }
-            .hero-center { padding: 20px 15px; margin-top: 10px; }
-
+            /* Titel einzeilig und kleiner */
+            .main-title { 
+                font-size: 12vw; /* Verkleinert für eine Zeile */
+                letter-spacing: 4px; 
+                margin-right: -4px; 
+            }
+            .sub-title { font-size: 14px; letter-spacing: 4px; margin-right: -4px; margin-top: 10px; }
+            .date-badge { font-size: 11px; padding: 6px 15px; margin-top: 15px; }
+            
+            .nav-btn { width: 100%; max-width: 260px; font-size: 13px; padding: 14px; margin-top: 25px; }
+            
+            .hero-center { padding: 10px 15px; margin-top: 0; }
             .hero-bottom { padding: 20px 15px 40px 15px; gap: 25px; }
             .hero-card { flex-direction: column; text-align: center; align-items: center; padding: 20px; }
             .hero-card img { width: 100%; height: 120px; }
 
             .content-section { padding: 50px 15px; }
-            .section-header h2 { font-size: 26px; letter-spacing: 2px; }
-            .section-header p { font-size: 15px; }
+            .section-header h2 { font-size: 24px; letter-spacing: 1px; }
+            .section-header p { font-size: 14px; }
             
             .utopian-banner { padding: 25px 20px; }
             .utopian-banner h3 { font-size: 20px; }
@@ -543,6 +514,7 @@
             .winner-box.primary p { font-size: 15px; }
             
             .future-banner { padding: 40px 20px; }
+            .future-banner h3 { font-size: 26px; }
             .future-stats { padding: 30px 20px; }
 
             .about-section { padding: 60px 20px; margin-top: 40px; }
@@ -557,22 +529,16 @@
     <div class="hero">
         
         <div class="top-bar">
-            
-            <!-- Hamburger Icon (Nur Mobile) -->
-            <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="3" y1="12" x2="21" y2="12"></line>
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <line x1="3" y1="18" x2="21" y2="18"></line>
+            <!-- Hamburger Button (Mobile) -->
+            <button class="hamburger-btn" id="mobileMenuBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                 </svg>
             </button>
 
-            <!-- Desktop Button Links (Versteckt auf Handy) -->
-            <a href="#titanen-vergleich" class="desktop-btn js-scroll-link" data-i18n="nav_start">VERGLEICH STARTEN &rarr;</a>
-            
-            <!-- Zentriertes Menü (bzw. Slide-Out Menü auf Mobile) -->
+            <!-- Menü Wrapper (Desktop mittig, Mobile Slide-In) -->
             <div class="nav-menu-wrapper" id="navMenuWrapper">
-                <button class="close-menu" id="closeMenuBtn">&times;</button>
+                <button class="close-btn" id="closeMenuBtn">&times;</button>
                 <div class="nav-menu">
                     <a href="#titanen-vergleich" class="js-scroll-link" data-i18n="nav_compare_top">Titanen-Vergleich</a>
                     <a href="#marktuebersicht" class="js-scroll-link" data-i18n="nav_market">Marktübersicht</a>
@@ -581,7 +547,7 @@
                 </div>
             </div>
 
-            <!-- Language Switcher (Sauberes Icon) -->
+            <!-- Language Switcher Rechts -->
             <div class="lang-container">
                 <button class="lang-btn" id="langBtn">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -601,12 +567,10 @@
         </div>
 
         <div class="hero-center">
-            <!-- Neue Benennung -->
             <h1 class="main-title" data-i18n="main_title">K I &nbsp; T O O L S</h1>
             <h2 class="sub-title" data-i18n="sub_title">V E R G L E I C H</h2>
-            
-            <!-- Mobile CTA: Wird nur auf dem Handy unter dem Titel angezeigt -->
-            <a href="#titanen-vergleich" class="mobile-cta js-scroll-link" data-i18n="nav_start">VERGLEICH STARTEN &rarr;</a>
+            <p class="date-badge" data-i18n="date_badge">Stand: 04.05.2026</p>
+            <a href="#titanen-vergleich" class="nav-btn js-scroll-link" data-i18n="nav_start">VERGLEICH STARTEN &rarr;</a>
         </div>
 
         <div class="hero-bottom">
@@ -936,22 +900,42 @@
     <!-- 4. Sektion: Über Uns -->
     <div id="ueber-uns" class="about-section">
         <div class="about-container">
-            <h3 data-i18n="about_title">Über KI-Vergleich</h3>
-            <p data-i18n="about_p1">Willkommen bei Ihrer primären Anlaufstelle für technologische Präzision und Fortschritt in einer von KI geprägten Welt.</p>
+            <h3 data-i18n="about_title">Über TrendReport</h3>
+            <p data-i18n="about_p1">Willkommen bei TrendReport, Ihrer primären Anlaufstelle für technologische Präzision und Fortschritt in einer von KI geprägten Welt.</p>
             <p data-i18n="about_p2">Wir haben es uns zur Aufgabe gemacht, den unübersichtlichen Markt der Künstlichen Intelligenz zu filtern, zu analysieren und für Sie nutzbar zu machen. <strong>Wöchentlich</strong> veröffentlichen wir detaillierte Benchmarks, fundierte Informationen zu neuen KI-Entwicklungen und ordnen globale Branchentrends ein.</p>
             <p data-i18n="about_p3">Unser Anspruch ist es nicht nur, theoretisches Wissen zu vermitteln, sondern Ihnen konkrete, praxisnahe Empfehlungen für Ihren Workflow zu liefern. Von den besten Bildgeneratoren bis hin zur sichersten Enterprise-API: Wir testen die Werkzeuge, damit Sie stets einen technologischen Schritt voraus bleiben.</p>
         </div>
     </div>
 
     <footer>
-        &copy; <span id="year">2026</span> KI VERGLEICH. Unabhängige Analysen und datengestützte Übersichten.
+        &copy; <span id="year">2026</span> KI TOOLS VERGLEICH. Unabhängige Analysen und datengestützte Vergleiche.
     </footer>
 
     <!-- JavaScript -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             
-            // 1. Smooth Scrolling
+            // 1. Mobile Menu Toggle Logic
+            const hamburgerBtn = document.getElementById('mobileMenuBtn');
+            const closeMenuBtn = document.getElementById('closeMenuBtn');
+            const navMenuWrapper = document.getElementById('navMenuWrapper');
+
+            hamburgerBtn.addEventListener('click', () => {
+                navMenuWrapper.classList.add('active');
+            });
+
+            closeMenuBtn.addEventListener('click', () => {
+                navMenuWrapper.classList.remove('active');
+            });
+
+            // Close menu when clicking a link inside it
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenuWrapper.classList.remove('active');
+                });
+            });
+
+            // 2. Smooth Scrolling
             document.querySelectorAll('.js-scroll-link').forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault(); 
@@ -959,23 +943,8 @@
                     const targetSection = document.querySelector(targetId);
                     if (targetSection) {
                         targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        // Schließt das Mobile-Menü beim Klick
-                        document.getElementById('navMenuWrapper').classList.remove('open');
                     }
                 });
-            });
-
-            // 2. Mobile Hamburger Menü
-            const hamburgerBtn = document.getElementById('hamburgerBtn');
-            const closeMenuBtn = document.getElementById('closeMenuBtn');
-            const navMenuWrapper = document.getElementById('navMenuWrapper');
-
-            hamburgerBtn.addEventListener('click', () => {
-                navMenuWrapper.classList.add('open');
-            });
-
-            closeMenuBtn.addEventListener('click', () => {
-                navMenuWrapper.classList.remove('open');
             });
 
             // 3. Slide-In Animation & Progress Bar
@@ -1018,7 +987,7 @@
             // 5. Übersetzungssystem
             const translations = {
                 de: {
-                    main_title: "K I &nbsp; T O O L S", sub_title: "V E R G L E I C H",
+                    main_title: "K I &nbsp; T O O L S", sub_title: "V E R G L E I C H", date_badge: "Stand: 04.05.2026",
                     nav_start: "VERGLEICH STARTEN →", nav_compare_top: "Titanen-Vergleich", nav_market: "Marktübersicht", nav_trends: "Trend-Analyse", nav_about: "Über uns",
                     card_title: "Der neue Standard ist da.", card_desc: "Noch nie war die Leistungsdichte so hoch. Wer dominiert den Markt?", card_btn: "Jetzt herausfinden →",
                     hero_text1_strong: "Eine neue Ära der Intelligenz.", hero_text1: "Dank rasanter Entwicklungen überbrücken wir heute die Grenzen zwischen Text, Bild und Code.",
@@ -1044,12 +1013,12 @@
                     feat_runway1: "Pionier für kreative KI-Videobearbeitung.", feat_runway2: "Präzise Kamerasteuerung (Motion Brush).", feat_runway3: "Standard-Tool für VFX Artists.",
                     feat_suno1: "Generiert komplette, radiotaugliche Songs.", feat_suno2: "Versteht Emotionen und Genres.", feat_suno3: "Erzeugt Gesang in Studioqualität.",
                     trend_title: "Trend-Analyse: Die Zukunft der KI", trend_desc: "Eine fundierte Analyse der kommenden Entwicklungsstufen.",
-                    trend_h3: "Vom Chatbot zum autonomen Agenten", trend_p1: "Zukunftstechnologie wird von 'Agentic AI' dominiert sein.", trend_p2: "Systeme werden Arbeitsabläufe planen und ausführen.", trend_p3: "Zudem werden branchenspezifische SLMs (Small Language Models) an Bedeutung gewinnen.",
-                    trend_stat1_title: "Multimodalität 2.0", trend_stat1_desc: "Echtzeit-Verarbeitung der physischen Welt durch Sensoren.", trend_stat2_title: "Edge AI & Privacy", trend_stat2_desc: "Lokale Rechenleistung für absoluten Datenschutz ohne Cloud.", trend_stat3_title: "Synthetische Daten", trend_stat3_desc: "KIs trainieren sich gegenseitig durch generierte Datensätze für Leistungssprünge.",
-                    about_title: "Über KI-Vergleich", about_p1: "Willkommen bei Ihrer Anlaufstelle für technologische Präzision.", about_p2: "Wir veröffentlichen wöchentlich fundierte Informationen zu KI-Entwicklungen.", about_p3: "Wir liefern konkrete, praxisnahe Empfehlungen für Ihren Workflow."
+                    trend_h3: "Vom Chatbot zum autonomen Agenten", trend_p1: "Die aktuelle Generation von KI-Modellen agiert vorwiegend reaktiv. Die Technologie der nahen Zukunft wird jedoch von 'Agentic AI' dominiert sein.", trend_p2: "Diese autarken Systeme werden eigenständig komplexe Arbeitsabläufe planen und exekutieren. Der Fokus verschiebt sich zur aktiven Prozessabwicklung.", trend_p3: "Zudem werden branchenspezifische Small Language Models (SLMs) an Bedeutung gewinnen.",
+                    trend_stat1_title: "Multimodalität 2.0", trend_stat1_desc: "KIs der nächsten Generation verarbeiten Audio und Video in Echtzeit durch Kameras in Smart Glasses.", trend_stat2_title: "Edge AI & Privacy", trend_stat2_desc: "Rechenleistung wandert auf lokale Endgeräte für maximale Datenverarbeitung ohne Latenz und absolute DSGVO-Konformität.", trend_stat3_title: "Synthetische Daten", trend_stat3_desc: "KIs trainieren sich künftig gegenseitig durch künstlich generierte Datensätze, was zu einem exponentiellen Leistungssprung führen wird.",
+                    about_title: "Über TrendReport", about_p1: "Willkommen bei TrendReport, Ihrer primären Anlaufstelle für technologische Präzision und Fortschritt in einer von KI geprägten Welt.", about_p2: "Wir haben es uns zur Aufgabe gemacht, den Markt zu filtern. Wöchentlich veröffentlichen wir detaillierte Benchmarks und Informationen zu neuen Entwicklungen.", about_p3: "Unser Anspruch ist es, Ihnen konkrete, praxisnahe Empfehlungen für Ihren Workflow zu liefern. Wir testen die Werkzeuge, damit Sie voraus bleiben."
                 },
                 en: {
-                    main_title: "A I &nbsp; T O O L S", sub_title: "C O M P A R I S O N",
+                    main_title: "A I &nbsp; T O O L S", sub_title: "C O M P A R I S O N", date_badge: "As of: May 4, 2026",
                     nav_start: "START COMPARISON →", nav_compare_top: "Titan Comparison", nav_market: "Market Overview", nav_trends: "Trend Analysis", nav_about: "About us",
                     card_title: "The new standard is here.", card_desc: "Performance density has never been this high. Who dominates?", card_btn: "Find out now →",
                     hero_text1_strong: "A new era of intelligence.", hero_text1: "Rapid developments bridge the gaps between text, image, and code today.",
@@ -1077,11 +1046,11 @@
                     trend_title: "Trend Analysis: The Future of AI", trend_desc: "A sound analysis of upcoming development stages.",
                     trend_h3: "From Chatbot to Autonomous Agent", trend_p1: "Future tech will be dominated by 'Agentic AI'.", trend_p2: "Systems will plan and execute workflows independently.", trend_p3: "Industry-specific SLMs (Small Language Models) will also gain importance.",
                     trend_stat1_title: "Multimodality 2.0", trend_stat1_desc: "Real-time processing via sensors.", trend_stat2_title: "Edge AI & Privacy", trend_stat2_desc: "Local computing power for maximum privacy.", trend_stat3_title: "Synthetic Data", trend_stat3_desc: "AIs train each other via generated datasets for massive performance leaps.",
-                    about_title: "About AI Comparison", about_p1: "Welcome to your hub for technological precision.", about_p2: "We publish well-founded information on AI developments weekly.", about_p3: "We provide concrete, practical recommendations for your workflow."
+                    about_title: "About TrendReport", about_p1: "Welcome to TrendReport, your hub for technological precision.", about_p2: "We publish well-founded information on AI developments weekly.", about_p3: "We provide concrete, practical recommendations for your workflow."
                 },
                 es: {
-                    main_title: "H E R R A M I E N T A S &nbsp; I A", sub_title: "C O M P A R A C I Ó N",
-                    nav_start: "INICIAR COMPARACIÓN →", nav_compare_top: "Comparación", nav_market: "Visión del Mercado", nav_trends: "Tendencias", nav_about: "Sobre nosotros",
+                    main_title: "I A &nbsp; T O O L S", sub_title: "C O M P A R A C I Ó N", date_badge: "A partir del: 04.05.2026",
+                    nav_start: "INICIAR COMPARACIÓN →", nav_compare_top: "Comparación", nav_market: "Visión del Mercado", nav_trends: "Análisis de Tendencias", nav_about: "Sobre nosotros",
                     card_title: "El nuevo estándar está aquí.", card_desc: "La densidad de rendimiento nunca ha sido tan alta.", card_btn: "Descúbrelo ahora →",
                     hero_text1_strong: "Una nueva era de inteligencia.", hero_text1: "Cerrando brechas entre texto, imagen y código.",
                     hero_text2_strong: "Tres titanes en foco.", hero_text2: "Comparamos OpenAI, Anthropic y Google. ¿Qué sistema eleva tu productividad?",
@@ -1108,11 +1077,11 @@
                     trend_title: "Análisis: El Futuro de la IA", trend_desc: "Un análisis de las próximas etapas.",
                     trend_h3: "De Chatbot a Agente Autónomo", trend_p1: "El futuro será dominado por la 'IA de Agentes'.", trend_p2: "Sistemas que ejecutan flujos de trabajo.", trend_p3: "Modelos pequeños y específicos ganarán importancia.",
                     trend_stat1_title: "Multimodalidad 2.0", trend_stat1_desc: "Procesamiento en tiempo real.", trend_stat2_title: "Edge AI & Privacy", trend_stat2_desc: "Computación local para privacidad máxima.", trend_stat3_title: "Datos Sintéticos", trend_stat3_desc: "IAs se entrenan a sí mismas para saltos de rendimiento.",
-                    about_title: "Sobre nosotros", about_p1: "Bienvenido a tu centro de IA.", about_p2: "Publicamos información semanal.", about_p3: "Recomendaciones prácticas para tu flujo de trabajo."
+                    about_title: "Sobre TrendReport", about_p1: "Bienvenido a TrendReport.", about_p2: "Publicamos información semanal.", about_p3: "Recomendaciones prácticas para tu flujo de trabajo."
                 },
                 fr: {
-                    main_title: "O U T I L S &nbsp; I A", sub_title: "C O M P A R A I S O N",
-                    nav_start: "COMMENCER →", nav_compare_top: "Comparaison", nav_market: "Aperçu du Marché", nav_trends: "Tendances", nav_about: "À propos",
+                    main_title: "O U T I L S &nbsp; I A", sub_title: "C O M P A R A I S O N", date_badge: "En date du : 04.05.2026",
+                    nav_start: "COMMENCER →", nav_compare_top: "Comparaison", nav_market: "Aperçu du Marché", nav_trends: "Analyse des Tendances", nav_about: "À propos",
                     card_title: "Le nouveau standard est là.", card_desc: "Qui domine le marché ?", card_btn: "Découvrez-le →",
                     hero_text1_strong: "Une nouvelle ère d'intelligence.", hero_text1: "Les développements comblent les fossés entre texte et code.",
                     hero_text2_strong: "Trois titans en point de mire.", hero_text2: "Quel système élève votre productivité ?",
@@ -1139,11 +1108,11 @@
                     trend_title: "Analyse : L'Avenir de l'IA", trend_desc: "Une analyse des prochaines étapes.",
                     trend_h3: "Du Chatbot à l'Agent", trend_p1: "La technologie sera dominée par l'IA d'agents.", trend_p2: "Les systèmes exécuteront des tâches indépendamment.", trend_p3: "Les modèles spécialisés (SLMs) prendront de l'importance.",
                     trend_stat1_title: "Multimodalité 2.0", trend_stat1_desc: "Traitement via capteurs.", trend_stat2_title: "Edge AI & Privacy", trend_stat2_desc: "Informatique locale.", trend_stat3_title: "Données Synthétiques", trend_stat3_desc: "L'IA s'entraîne elle-même pour plus de performances.",
-                    about_title: "À propos de nous", about_p1: "Bienvenue sur votre plateforme IA.", about_p2: "Nous publions des informations hebdomadaires.", about_p3: "Nous fournissons des recommandations pratiques."
+                    about_title: "À propos de TrendReport", about_p1: "Bienvenue sur TrendReport.", about_p2: "Nous publions des informations hebdomadaires.", about_p3: "Nous fournissons des recommandations pratiques."
                 }
             };
 
-            // Sprachwechsel Logik
+            // Sprachwechsel Logik Update
             document.querySelectorAll('#langMenu a').forEach(item => {
                 item.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -1155,8 +1124,8 @@
                     document.querySelectorAll('[data-i18n]').forEach(el => {
                         const key = el.getAttribute('data-i18n');
                         if(translations[selectedLang] && translations[selectedLang][key]) {
-                            // Erlaubt HTML (wie &nbsp;) für den Titel
-                            if(key === 'main_title') {
+                            // Erlaube HTML für Non-Breaking Spaces im Main Title
+                            if (key === 'main_title') {
                                 el.innerHTML = translations[selectedLang][key];
                             } else {
                                 el.innerText = translations[selectedLang][key];
