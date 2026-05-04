@@ -877,6 +877,7 @@
                 <p data-i18n="trend_p1">Die aktuelle Generation von KI-Modellen agiert vorwiegend reaktiv und wartet auf menschliche Prompts. Die Technologie der nahen Zukunft wird jedoch von <strong>"Agentic AI" (Agenten-basierten Systemen)</strong> dominiert sein.</p>
                 <p data-i18n="trend_p2">Diese autarken Systeme werden nicht nur Texte verfassen, sondern eigenständig komplexe, mehrstufige Arbeitsabläufe über verschiedene Software-Schnittstellen (APIs) hinweg planen und exekutieren. Der Fokus verschiebt sich drastisch von der reinen Wissensgenerierung zur aktiven Prozessabwicklung in Unternehmen.</p>
                 <p data-i18n="trend_p3">Zudem werden branchenspezifische Small Language Models (SLMs) an Bedeutung gewinnen. Anstatt auf gigantische Alleskönner zu setzen, trainieren Firmen hocheffiziente, spezialisierte Modelle für medizinische, juristische oder architektonische Fachbereiche, die lokal betrieben werden können.</p>
+            <a href="https://google.com/?ref=moritz-test" target="_blank" style="display: inline-block; margin-top: 15px; padding: 10px 20px; background-color: #A3A095; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 0.9rem;">Zum Anbieter & testen ↗</a>
             </div>
             
             <div class="future-stats">
@@ -1155,5 +1156,32 @@
             document.getElementById('year').innerText = new Date().getFullYear();
         });
     </script>
+    <!-- Cookie Banner -->
+<div id="cookie-banner" style="display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: #2C2C2C; color: white; padding: 15px 20px; text-align: center; z-index: 1000; box-shadow: 0 -5px 15px rgba(0,0,0,0.2);">
+    <p style="margin: 0 0 10px 0; font-size: 0.9rem; line-height: 1.4;">
+        Wir nutzen Cookies und ähnliche Technologien, um dir das beste Erlebnis zu bieten und diese Seite (z.B. über Affiliate-Links) zu finanzieren. 
+        <a href="datenschutz.html" style="color: #A3A095; text-decoration: underline;">Mehr Infos</a>
+    </p>
+    <button id="accept-cookies" style="background: #A3A095; color: #fff; border: none; padding: 8px 25px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: background 0.3s;">Alles klar!</button>
+</div>
+
+<script>
+    // Logik für das Cookie-Banner
+    document.addEventListener("DOMContentLoaded", function() {
+        const cookieBanner = document.getElementById("cookie-banner");
+        const acceptBtn = document.getElementById("accept-cookies");
+
+        // Prüfen, ob der Nutzer schon zugestimmt hat (Speicherung im Browser)
+        if (!localStorage.getItem("cookiesAccepted")) {
+            cookieBanner.style.display = "block"; // Banner anzeigen
+        }
+
+        // Wenn der Button geklickt wird
+        acceptBtn.addEventListener("click", function() {
+            localStorage.setItem("cookiesAccepted", "true"); // Zustimmung speichern
+            cookieBanner.style.display = "none"; // Banner ausblenden
+        });
+    });
+</script>
 </body>
 </html>
